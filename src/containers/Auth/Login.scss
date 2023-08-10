@@ -51,6 +51,18 @@
     font-size: 15px;
 }
 
+.login-password-input {
+    position: relative;
+}
+
+.eyeIconBtn {
+    position: absolute;
+    top:  18px;
+    right: 10px;
+    padding: 10px;
+    cursor: pointer;
+}
+
 .login-form-submit {
     height: 50px;
     width: 290px;
@@ -81,6 +93,7 @@
 }
 
 .login-form-link {
+
     a {
         margin-left: 2px;
         font-size: 12px;
@@ -126,8 +139,16 @@
 .login-icon-google {
     background-color: red;
     margin-right: 10px;
+
+    &:hover {
+        opacity: 0.7;
+    }
 }
 
 .login-icon-facebook { 
     background-color: blue;
+    
+    &:hover {
+        opacity: 0.7;
+    }
 }

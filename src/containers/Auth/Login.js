@@ -9,8 +9,26 @@ import "./Login.scss";
 class Login extends Component {
   constructor(props) {
     super(props);
-    this.btnLogin = React.createRef();
+    this.state = {
+      userName: "",
+      password: "",
+      passwordHideShow: true,
+    };
   }
+
+  // xử lý các sự kiện
+  handleOnchangeUserName = (e) => {
+    this.setState({ userName: e.target.value });
+  };
+
+  handleOnchangePassword = (e) => {
+    this.setState({ password: e.target.value });
+  };
+
+  handleOnShowHidePassword = () => {
+    this.setState({ passwordHideShow: !this.state.passwordHideShow });
+  };
+
   render() {
     return (
       <div className="login-wrapper">
@@ -34,12 +52,32 @@ class Login extends Component {
                     type="text"
                     className="login-form-input"
                     placeholder="email"
+                    value={this.state.userName}
+                    onChange={(e) => {
+                      this.handleOnchangeUserName(e);
+                    }}
                   />
-                  <input
-                    type="password"
-                    className="login-form-input"
-                    placeholder="password"
-                  />
+                  <div className="login-password-input">
+                    <input
+                      type={this.state.passwordHideShow ? "password" : "text"}
+                      className="login-form-input"
+                      placeholder="password"
+                      value={this.state.password}
+                      onChange={(e) => {
+                        this.handleOnchangePassword(e);
+                      }}
+                    />
+                    <i
+                      onClick={() => {
+                        this.handleOnShowHidePassword();
+                      }}
+                      className={
+                        this.state.passwordHideShow
+                          ? "fa-regular fa-eye eyeIconBtn"
+                          : "fa-regular fa-eye-slash eyeIconBtn"
+                      }
+                    />
+                  </div>
                   <button className="login-form-submit" type="submit">
                     Login
                   </button>
@@ -53,8 +91,12 @@ class Login extends Component {
                 <div className="login-social">
                   <span className="login-social-title">Or sign in with :</span>
                   <div className="login-icon-group">
-                    <a href="#"><i className="fa-brands fa-google login-icon login-icon-google"></i></a>
-                    <a href="#"><i className="fa-brands fa-facebook-f login-icon login-icon-facebook"></i></a>
+                    <a href="#">
+                      <i className="fa-brands fa-google login-icon login-icon-google"></i>
+                    </a>
+                    <a href="#">
+                      <i className="fa-brands fa-facebook-f login-icon login-icon-facebook"></i>
+                    </a>
                   </div>
                 </div>
               </div>
