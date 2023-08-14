@@ -4,6 +4,7 @@ import { push } from "connected-react-router";
 import Tilt from "react-parallax-tilt";
 
 import * as actions from "../../store/actions";
+import { userService } from "../../services";
 import "./Login.scss";
 
 class Login extends Component {
@@ -12,6 +13,7 @@ class Login extends Component {
     this.state = {
       userName: "",
       password: "",
+      errorMessage: "",
       passwordHideShow: true,
     };
   }
@@ -27,6 +29,30 @@ class Login extends Component {
 
   handleOnShowHidePassword = () => {
     this.setState({ passwordHideShow: !this.state.passwordHideShow });
+  };
+
+  handleLogin = async () => {
+    this.setState({ errorMessage: ""});
+
+    try {
+      let data = await userService.handleLogin(this.state.userName, this.state.password);
+      console.log(data);
+      if(data && data.errcode !== 0) {
+        this.setState({ errorMessage: data.message });
+      }
+      if (data && data.errcode === 0) {
+        this.props.userLoginSuccess(data.user)
+      }
+
+    } 
+    catch (error) {
+      console.log(error);
+      if (error.response) {
+        if (error.response.data) {
+          this.setState({ errorMessage: error.response.data.message });
+        }
+      }
+    }
   };
 
   render() {
@@ -78,10 +104,17 @@ class Login extends Component {
                       }
                     />
                   </div>
-                  <button className="login-form-submit" type="submit">
+                  <p className="login-errorMessage">{this.state.errorMessage}</p>
+                </form>
+                  <button
+                    onClick={() => {
+                      this.handleLogin();
+                    }}
+                    className="login-form-submit"
+                    type="submit"
+                  >
                     Login
                   </button>
-                </form>
                 <span className="login-form-forgot">
                   Forgot
                   <strong className="login-form-link">
@@ -117,9 +150,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     navigate: (path) => dispatch(push(path)),
-    adminLoginSuccess: (adminInfo) =>
-      dispatch(actions.adminLoginSuccess(adminInfo)),
-    adminLoginFail: () => dispatch(actions.adminLoginFail()),
+    userLoginSuccess: (userInfo) => dispatch(actions.userLoginSuccess(userInfo)),
+    userLoginFail: () => dispatch(actions.userLoginFail()),
   };
 };
 
