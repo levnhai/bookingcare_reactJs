@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux"
 import ModalUser from "./ModalUser";
+import ModalEditUser from "./ModalEditUser";
 
 import {userService} from "../../services"
 import "./UserManage.scss";
@@ -11,7 +12,9 @@ class UserManage extends Component {
     super(props);
     this.state = {
         arrUsers: [],
-        isOpenModalUser: false
+        isOpenModalUser: false,
+        isOpenModalEditUser: false,
+        editUser: {},
     }
   }
 
@@ -40,6 +43,12 @@ class UserManage extends Component {
     });
   }
 
+  tonggleModalEditUser = () => {
+    this.setState({
+      isOpenModalEditUser: !this.state.isOpenModalEditUser
+    });
+  }
+
   createNewUser = async (data) => {
     try {
       let user = await userService.createNewUser(data);
@@ -53,6 +62,28 @@ class UserManage extends Component {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  handleBtnEditUser = (user) => {
+    this.setState({
+      isOpenModalEditUser : true,
+      editUser : user
+    })
+  }
+
+  editUser = async (data) => {
+    try {
+      let user = await userService.editUser(data);
+      if (user && user.errCode !== 0) {
+        alert(user.errMessage)
+      }
+      else {
+        await this.handleGetAllUser();
+        this.tonggleModalEditUser();
+      }
+    } catch (error) {
+      console.log(error)
+    } 
   }
 
   render() {  
@@ -93,7 +124,7 @@ class UserManage extends Component {
                             <th>{user.gender}</th>
                             <th>{user.roleId}</th>
                             <th>
-                                <button className="btn-icon"><i className="icon-btn-edit fa-solid fa-pencil"></i></button>
+                                <button onClick={() =>this.handleBtnEditUser(user)} className="btn-icon"><i className="icon-btn-edit fa-solid fa-pencil"></i></button>
                                 <button className="btn-icon"><i className="icon-btn-delete fa-solid fa-trash"></i></button>
                             </th>
                             
@@ -109,6 +140,13 @@ class UserManage extends Component {
         className={"modal-user"} 
         createNewUser = {this.createNewUser}
         />
+       {this.state.isOpenModalEditUser &&  
+       <ModalEditUser
+          isOpen={this.state.isOpenModalEditUser} 
+          tonggle= {this.tonggleModalEditUser}  
+          currentUser= {this.state.editUser}     
+          editUser = {this.editUser} 
+        />}
       </div>
     );
   }

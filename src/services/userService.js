@@ -10,8 +10,11 @@ const userService = {
     },
 
     createNewUser(data) {
-        console.log(data);
         return axios.post('/api/create-new-user', data);
+    },
+
+    editUser(data) {
+        return axios.put('/api/edit-user', data);
     }
 };
 export default userService;
