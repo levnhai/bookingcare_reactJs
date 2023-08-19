@@ -86,6 +86,21 @@ class UserManage extends Component {
     } 
   }
 
+  handleBtnDeleteUser = async (data) => {
+   try {
+    let user = await userService.deleteUser(data.id)
+    if(user && user.errCode !== 0) {
+      alert(user.errMessage)
+    }
+    else {
+      await this.handleGetAllUser();
+
+    }
+   } catch (error) {
+    console.log(error)
+   }
+  }
+
   render() {  
     let userData = this.state.arrUsers; 
     return (
@@ -125,7 +140,7 @@ class UserManage extends Component {
                             <th>{user.roleId}</th>
                             <th>
                                 <button onClick={() =>this.handleBtnEditUser(user)} className="btn-icon"><i className="icon-btn-edit fa-solid fa-pencil"></i></button>
-                                <button className="btn-icon"><i className="icon-btn-delete fa-solid fa-trash"></i></button>
+                                <button onClick={()=> this.handleBtnDeleteUser(user)} className="btn-icon"><i className="icon-btn-delete fa-solid fa-trash"></i></button>
                             </th>
                             
                         </tr>
