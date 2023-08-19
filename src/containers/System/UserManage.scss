@@ -1,5 +1,16 @@
+.use-container { 
+    position: relative;
+}
+.btn-newuser {
+    position: absolute;
+    right: 20px;
+    top: 80px;
+
+}
+
 .user-table {
     display: flex;
+    margin-top: 10px;
 }
 
 .styled-table {
@@ -25,20 +36,43 @@
 
 .styled-table tbody tr {
     border-bottom: 1px solid #dddddd;
-
-    &:hover {
-        opacity: 0.6;
-        cursor: pointer;
-    }
 }
 
 .styled-table tbody tr:last-of-type {
     border-bottom: 2px solid #009879;
 }
 
-.btn  {
-
+.btn-icon {
     background-color: transparent;
     outline: none;
     border: transparent;
+    margin-right: 8px;
 }
+
+.icon-btn-edit {
+    color: goldenrod;
+}
+
+.icon-btn-delete { 
+    color: red;
+}
+
+
+// Modal User
+.modal-user {
+
+}
+
+
+.modal-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.modal-btn {
+    width: 100px;
+    height: 42px;
+}
+
