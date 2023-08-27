@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import HeaderHome from './HeaderHome';
+
+import * as actions from "../../store/actions";
 
 class Home extends Component {
 
     render() {
-        const { isLoggedIn } = this.props;
-        let linkToRedirect = isLoggedIn ? '/system/user-manage' : '/';
 
         return (
-            <Redirect to={linkToRedirect} />
+          <div className='Home-page'>
+            <HeaderHome />
+          </div>
         );
     }
 
@@ -19,11 +21,13 @@ const mapStateToProps = state => {
     return {
         // isLoggedIn: state.admin.isLoggedIn
         isLoggedIn: state.user.isLoggedIn
+
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        processLogout: () => dispatch(actions.processLogout()),
     };
 };
 

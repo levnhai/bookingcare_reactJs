@@ -1,0 +1,78 @@
+.home-header-container {
+    height: 78px;
+    border : 1px solid red;
+}
+
+.home-header-content {
+    margin: 0px 180px;
+    display: flex;
+}
+
+.left-content {
+    height: 78px;
+    width: 20%;
+    background: url(../../../assets/images/logo.svg) no-repeat center center;
+}
+
+.center-content {
+    width: 60%;
+}
+
+.list-center {
+    height: 78px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title-center {
+    list-style: none;
+    
+    margin: 0px 10px;
+}
+
+.title-link {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    font-size: 12px;
+
+}
+
+.title-link span { 
+    display: block;
+    font-weight: lighter;
+    font-size: 10px;
+    color: #333;
+}
+
+.right-content {
+    height: 78px;
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+}
+
+.help-icon {
+    background: url(../../../assets/images/help.svg) no-repeat center center;
+    height: 78px;
+    width: 50px;
+}
+
+.titleSupport {
+    font-size: 16px;
+    color: #003553;
+    font-weight: 500;
+    line-height: 18.75px;
+
+}
+
+.titleSupport span {
+    display: block;
+    font-size: 25px;
+    font-weight: 700;
+    color: #ffb54a;
+    line-height: 29.3px;
+}
